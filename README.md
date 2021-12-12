@@ -10,7 +10,7 @@ This repository contains the python scripts that implement a chess-based AI and 
 -> chess_AI_performance.py
 
 
-*EXISITING PACKAGES USED*:
+*EXISITING LIBRARIES USED*:
 
 The scripts use the python-chess library whose documentation can be found in: https://python-chess.readthedocs.io/en/latest/. The library can be installed with the command: pip install python-chess.
 
