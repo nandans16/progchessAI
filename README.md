@@ -14,7 +14,7 @@ This repository contains the python scripts that implement a chess-based AI and 
 
 The scripts use the python-chess library whose documentation can be found in: https://python-chess.readthedocs.io/en/latest/. The library can be installed with the command: pip install python-chess.
 
-Other packages that are used are numpy, random, time and matplotlib, which are commonly available python packages. Random is used to select random elements from a list ad time is used to keep track of the time of the game. Matplotlib is used to generate the histograms in chess_AI_performance.py. 
+Other libraries that are used are numpy, random, time and matplotlib, which are commonly available python libraries. Random is used to select random elements from a list ad time is used to keep track of the time of the game. Matplotlib is used to generate the histograms in chess_AI_performance.py. 
 
 *chess_board_interface.py*
 
