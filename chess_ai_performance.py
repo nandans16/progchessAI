@@ -69,17 +69,23 @@ if __name__ == "__main__":
     score_list.append(mc.score(state))
 
 #Plot the histograms for number of nodes and score
+#Plot the histograms for number of nodes and score
 import matplotlib.pyplot as plt
+
+game_str = str(game_type)
+
+if game_type == 5:
+  game_str = "progressive"
 
 plt.hist(num_nodes_list, bins=20) 
 plt.xlabel("Number of nodes generated during each game")
 plt.ylabel("Count of games with respect to number of nodes generated")
 plt.title("Histogram of number of nodes generated every game")
-plt.savefig(r"Num_nodes_MCTS_chess_2_move")
+plt.savefig(r"Num_nodes_MCTS_chess_"+game_str+"_moves")
 plt.figure()
 
 plt.hist(score_list, bins=20) 
 plt.xlabel("Score at the end of each game")
 plt.ylabel("Count of games with respect to score")
 plt.title("Histogram of scores at the end of every game")
-plt.savefig(r"Score_MCTS_chess_2_move")
+plt.savefig(r"Score_MCTS_chess_"+game_str+"_move")
