@@ -134,28 +134,18 @@ class Node:
         # Q = [sign * c.score_total / max(c.visit_count, 1) for c in children]
         return Q
 
-obj = [np.argmax, np.argmin]
-
-def min_or_max(node, obj):
-  ob = obj
-
-  if node.state[0] == 1:
-    ob = ob
-
-  return ob
-
 def exploit(node):
-    return node.children()[min_or_max(node, obj)[0](node.Q_values())]
+    return node.children()[np.argmax(node.Q_values())]
 
 def explore(node):
-    return node.children()[min_or_max(node, obj)[1](node.N_values())] # TODO
+    return node.children()[np.argmax(node.N_values())] # TODO
 
 def uct(node):
     # max_c Qc + sqrt(ln(Np) / Nc)
     Q = np.array(node.Q_values())
     N = np.array(node.N_values())
     U = Q + np.sqrt(np.log(node.visit_count + 1) / (N + 1))
-    return node.children()[min_or_max(node, obj)[0](U)]
+    return node.children()[np.argmax(U)]
 
 choose_child = uct          #Function name changed to UCT 
 
