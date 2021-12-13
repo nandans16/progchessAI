@@ -60,7 +60,7 @@ def score(state):
         if piece_owner(piece) == 1:
           piece_val = -piece_val
 
-        score + piece_val        
+        score = score + piece_val        
 
     return score
 
