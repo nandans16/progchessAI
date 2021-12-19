@@ -30,7 +30,7 @@ For player 1, the player can control moves when they are playing as a human play
 
 This script contains the functions that are used to create nodes/states, evaluate the score at leaf nodes, generate children for each state, perform rollouts and the baseline AI that chooses random moves. 
 
-Among these functions, the MCTS(state, ctr, num_ro): -> state, is responsible for performing multiple rollouts for each state where ctr is the parameter that controls the depth of rollout and num_ro is the number of rollouts. 
+Among these functions, the MCTS(state, ctr, num_ro): -> state and MCTS_NN(state, ctr, num_ro): -> state, are responsible for performing multiple rollouts for each state where ctr is the parameter that controls the depth of rollout and num_ro is the number of rollouts. The MCTS_NN function performs the rollouts with the aid of the NN output for each state. The neural network is loaded from **nn_1_weights.pth** and the model from **NN_training.py**.  
 
 This script is based on the course notes in the CIS 667, Fall 2021 course: https://colab.research.google.com/drive/1JuNdI_zcT35MWSY4-h_2ZgH7IBe2TRYd?usp=sharing. Access is permitted only to students who are a part of the course. 
 
@@ -52,7 +52,7 @@ This script is used to create the training and test datasets for the CNN. The cr
 
 *NN_training.py*
 
-This script is used to define the CNN model that is to be used and also to train it using the samples that were created using NN_data_generation.py. This script also generates plots for the training and test errors for a batch gradient descent using SGD and MSE loss. The code is largely borrowed from the PyTorch tutorial in https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html. The functions and code for the weight updates have been borrowed from the class notes for CIS 667 course, EECS department, Syracuse University, Fall '21. The weights are stored in a .pth file, so that it can be reused without the need to retrain the network. 
+This script is used to define the CNN model that is to be used and also to train it using the samples that were created using NN_data_generation.py. This script also generates plots for the training and test errors for a batch gradient descent using SGD and MSE loss. The code is largely borrowed from the PyTorch tutorial in https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html. The functions and code for the weight updates have been borrowed from the class notes for CIS 667 course, EECS department, Syracuse University, Fall '21. The weights are stored in a **nn_1_weights.pth** file, so that it can be reused without the need to retrain the network. 
 
 This repository also includes the files *train_data_input.pkl*, *train_data_target.pkl*, *test_data_input.pkl* and *test_data_target.pkl* which have 1682 training samples and 804 test samples. The files labelled input contain the state and encoded board representations and the target files are those that contain the target output of the CNN. 
      
