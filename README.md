@@ -14,7 +14,10 @@ This repository contains the python scripts that implement a chess-based AI and 
 
 The scripts use the python-chess library whose documentation can be found in: https://python-chess.readthedocs.io/en/latest/. The library can be installed with the command: **pip install python-chess**.
 
-Other libraries that are used are numpy, random, time and matplotlib, which are commonly available python libraries. Random is used to select random elements from a list ad time is used to keep track of the time of the game. Matplotlib is used to generate the histograms in chess_AI_performance.py. 
+Another important library that has been used is PyTorch. PyTorch can be installed by following the instructions in https://pytorch.org/get-started/locally/. For the CPU only version on Anaconda, the following command must be executed on the Anaconda Powershell Prompt: **conda install pytorch torchvision torchaudio cpuonly -c pytorch**. 
+
+
+Other libraries that are used are numpy, random, time, pickle and matplotlib, which are commonly available python libraries. Random is used to select random elements from a list ad time is used to keep track of the time of the game. Matplotlib is used to generate the histograms in chess_AI_performance.py. Pickle is used to store the training and test datasets. 
 
 *chess_board_interface.py*
 
@@ -38,4 +41,15 @@ This script is designed to simulate 100 games with the advanced AI competing aga
 *chess_ai_with_nn_performance.py*
 
 This script is designed to simulate 100 games with the **advanced AI aided by a NN** competing against the baseline AI. The user can select the number of moves per turn or game type through an input. The second part of the code is used to generate the histogram plots for the number of nodes generated, the scores at the end of games and the average time taken for a move across games. This requires the library matplotlib. 
+
+*NN_helpers.py*
+This script is used to define an encoding scheme for converting the board into a suitable format so that it can be used as an input to the CNN that is used with MCTS algorithm, and to define an evaluation function that produces a confidence score for the output of the CNN indicating the effectiveness of the move/action.   
+
+*NN_data_generation.py*
+This script is used to create the training and test datasets for the CNN. The created samples which inlcude the input state and the target output are stored in pickle files (.pkl). 
+
+*NN_training.py*
+This script is used to define the CNN model that is to be used and also to train it using the samples that were created using NN_data_generation.py. This script also generates plots for the training and test errors for a batch gradient descent using SGD and MSE loss. The code is largely borrowed from the PyTorch tutorial in https://pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html. The functions and code for the weight updates have been borrowed from the class notes for CIS 667 course, EECS department, Syracuse University, Fall '21. The weights are stored in a .pth file, so that it can be reused without the need to retrain the network. 
+
+This repository also includes the files *train_data_input.pkl*, *train_data_target.pkl*, *test_data_input.pkl* and *test_data_target.pkl* which have 1682 training samples and 804 test samples. The files labelled input contain the state and encoded board representations and the target files are those that contain the target output of the CNN. 
      
