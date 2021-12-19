@@ -1,4 +1,3 @@
-#Chess library in https://github.com/niklasf/python-chess
 import chess
 import numpy as np
 import random
@@ -157,12 +156,14 @@ class Node:
             brd_c = []
             brd_c.append(nnh.board_to_arr(c.state))
             brd.append(brd_c)
+            brd = np.array(brd)
             brd = tc.Tensor(brd)
             
             st = []
             st_c = []
             st_c.append([c.state[0], c.state[1], c.state[3], c.state[4]])
             st.append(st_c)
+            st = np.array(st)
             st = tc.Tensor(st)
             
             p = net(brd, st)
