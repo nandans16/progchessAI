@@ -1,6 +1,18 @@
+#Chess library in https://github.com/niklasf/python-chess
 import chess
 import numpy as np
 import random
+
+#PyTorch library in https://github.com/pytorch/pytorch
+import torch as tc
+
+
+from NN_training import Net
+import NN_helpers as nnh
+
+#Load the trained neural network
+net = Net()
+net.load_state_dict(tc.load('nn_1_weights.pth'))
 
 def num_moves(moves, gt):
   nxt_moves = moves
@@ -38,6 +50,7 @@ def piece_owner(piece):
 
   return pl 
 
+#The code hereon is almost entirely based on the class notes of CIS 667, Dept. of EECS, Syracuse University
 def score(state):
     pl, num_mv, brd, moves, gt = state
     score = 0
@@ -60,7 +73,7 @@ def score(state):
         if piece_owner(piece) == 1:
           piece_val = -piece_val
 
-        score = score + piece_val        
+        score + piece_val        
 
     return score
 
@@ -108,6 +121,7 @@ def is_leaf(state):
     value = score(state)
     return len(children) == 0 or value != 0
 
+#This is almost entirely based on the class notes of CIS 667, Dept. of EECS, Syracuse University
 class Node:
     num_nodes = 0
 
@@ -133,6 +147,29 @@ class Node:
         Q = [sign * c.score_total / (c.visit_count+1) for c in children]
         # Q = [sign * c.score_total / max(c.visit_count, 1) for c in children]
         return Q
+    
+    def P_values(self):
+        children = self.children()
+        P = []
+        
+        for c in children:
+            brd = []
+            brd_c = []
+            brd_c.append(nnh.board_to_arr(c.state))
+            brd.append(brd_c)
+            brd = tc.Tensor(brd)
+            
+            st = []
+            st_c = []
+            st_c.append([c.state[0], c.state[1], c.state[3], c.state[4]])
+            st.append(st_c)
+            st = tc.Tensor(st)
+            
+            p = net(brd, st)
+            
+            P.append(p.item())
+        
+        return P
 
 def exploit(node):
     return node.children()[np.argmax(node.Q_values())]
@@ -144,10 +181,20 @@ def uct(node):
     # max_c Qc + sqrt(ln(Np) / Nc)
     Q = np.array(node.Q_values())
     N = np.array(node.N_values())
+    
     U = Q + np.sqrt(np.log(node.visit_count + 1) / (N + 1))
     return node.children()[np.argmax(U)]
 
-choose_child = uct          #Function name changed to UCT 
+choose_child = uct        #Function name changed to UCT 
+
+def uct_nn(node):
+    Q = np.array(node.Q_values())
+    N = np.array(node.N_values())
+    P = np.array(node.P_values())
+    
+    U = Q + P*(np.sqrt(np.log(node.visit_count + 1) / (N + 1)))
+    return node.children()[np.argmax(U)]
+
 
 def rollout(node, ctr):
     
@@ -165,6 +212,22 @@ def rollout(node, ctr):
     node.score_estimate = node.score_total / node.visit_count
     return result
 
+def rollout_nn(node, ctr):
+    
+    result = 0
+    ctr = ctr-1
+    
+    if is_leaf(node.state): 
+      result = score(node.state)
+
+    elif ctr > 0: 
+      result = rollout(uct_nn(node), ctr)
+    
+    node.visit_count += 1
+    node.score_total += result
+    node.score_estimate = node.score_total / node.visit_count
+    return result
+
 def MCTS(state, ctr, num_ro):
 
   node = Node(state)
@@ -174,7 +237,21 @@ def MCTS(state, ctr, num_ro):
   
   new_node = uct(node)
   new_state = new_node.state
+  
+  
+  return new_state
 
+def MCTS_NN(state, ctr, num_ro):
+
+  node = Node(state)
+
+  for i in range(num_ro):
+    rollout_nn(node, ctr)
+  
+  new_node = uct_nn(node)
+  new_state = new_node.state
+  
+  
   return new_state
 
 def baseline_AI(state):
