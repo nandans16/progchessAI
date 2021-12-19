@@ -1,7 +1,7 @@
 # progchessAI
 This is a python-based AI that uses the Monte-Carlo Tree Search along with a Neural Network to improve the search, and to play the games of Standard, 2-move, 3-move, 4-move or progressive chess.  
 
-*README*
+**README**
 
 This repository contains the python scripts that implement a chess-based AI and an interface to play five diffrent variants of chess. The variants include Standard or 1-move, 2-move, 3-move, 4-move and progressive chess. The following scripts are available in this repository:
 
@@ -10,14 +10,14 @@ This repository contains the python scripts that implement a chess-based AI and 
 -> chess_AI_performance.py
 
 
-*EXISITING LIBRARIES USED*:
+**EXISITING LIBRARIES USED**
 
 The scripts use the python-chess library whose documentation can be found in: https://python-chess.readthedocs.io/en/latest/. The library can be installed with the command: **pip install python-chess**.
 
 Another important library that has been used is PyTorch. PyTorch can be installed by following the instructions in https://pytorch.org/get-started/locally/. For the CPU only version on Anaconda, the following command must be executed on the Anaconda Powershell Prompt: **conda install pytorch torchvision torchaudio cpuonly -c pytorch**. 
 
 
-Other libraries that are used are numpy, random, time, pickle and matplotlib, which are commonly available python libraries. Random is used to select random elements from a list ad time is used to keep track of the time of the game. Matplotlib is used to generate the histograms in chess_AI_performance.py. Pickle is used to store the training and test datasets. 
+Other libraries that are used are **numpy, random, time, pickle and matplotlib**, which are commonly available python libraries. Random is used to select random elements from a list ad time is used to keep track of the time of the game. Matplotlib is used to generate the histograms in chess_AI_performance.py. Pickle is used to store the training and test datasets. 
 
 *chess_board_interface.py*
 
