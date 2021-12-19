@@ -1,5 +1,5 @@
 # progchessAI
-This is a python-based AI that uses the Monte-Carlo Tree Search to play Standard, 2-move, 3-move, 4-move or progressive chess.  
+This is a python-based AI that uses the Monte-Carlo Tree Search along with a Neural Network to improve the search, and to play the games of Standard, 2-move, 3-move, 4-move or progressive chess.  
 
 *README*
 
@@ -12,7 +12,7 @@ This repository contains the python scripts that implement a chess-based AI and 
 
 *EXISITING LIBRARIES USED*:
 
-The scripts use the python-chess library whose documentation can be found in: https://python-chess.readthedocs.io/en/latest/. The library can be installed with the command: pip install python-chess.
+The scripts use the python-chess library whose documentation can be found in: https://python-chess.readthedocs.io/en/latest/. The library can be installed with the command: **pip install python-chess**.
 
 Other libraries that are used are numpy, random, time and matplotlib, which are commonly available python libraries. Random is used to select random elements from a list ad time is used to keep track of the time of the game. Matplotlib is used to generate the histograms in chess_AI_performance.py. 
 
@@ -31,7 +31,11 @@ Among these functions, the MCTS(state, ctr, num_ro): -> state, is responsible fo
 
 This script is based on the course notes in the CIS 667, Fall 2021 course: https://colab.research.google.com/drive/1JuNdI_zcT35MWSY4-h_2ZgH7IBe2TRYd?usp=sharing. Access is permitted only to students who are a part of the course. 
 
-*chess_AI_performance.py*
+*chess_ai_performance.py*
 
-This script is designed to simulate 100 games with the advanced AI competing against the baseline AI. The user can select the number of moves per turn or game type through an input. The second part of the code is used to generate the histogram plots for the number of nodes generated and the scores at the end of games. This requires the library matplotlib.   
+This script is designed to simulate 100 games with the advanced AI competing against the baseline AI. The user can select the number of moves per turn or game type through an input. The second part of the code is used to generate the histogram plots for the number of nodes generated, the scores at the end of games and the average time taken for a move across games. This requires the library matplotlib. 
+
+*chess_ai_with_nn_performance.py*
+
+This script is designed to simulate 100 games with the **advanced AI aided by a NN** competing against the baseline AI. The user can select the number of moves per turn or game type through an input. The second part of the code is used to generate the histogram plots for the number of nodes generated, the scores at the end of games and the average time taken for a move across games. This requires the library matplotlib. 
      
